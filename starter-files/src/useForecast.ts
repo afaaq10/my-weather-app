@@ -15,7 +15,7 @@ export const useForecast = () => {
 
     const getData = (value: string) => {
 
-        fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${value}&limit=5&appid=dd6b23224fe4d97029d5697bd54182cf&units=metric`)
+        fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${value}&limit=5&appid=dd6b23224fe4d97029d5697bd54182cf&units=metric`)
             .then((res) => res.json())
             .then((data) => getDatafetch(data))
 
@@ -33,7 +33,7 @@ export const useForecast = () => {
     }
 
     const getCity = (input: optionType) => {
-        fetch(`http://api.openweathermap.org/data/2.5/forecast?lat=${input.lat}&lon=${input.lon}&appid=dd6b23224fe4d97029d5697bd54182cf&units=metric`)
+        fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${input.lat}&lon=${input.lon}&appid=dd6b23224fe4d97029d5697bd54182cf&units=metric`)
             .then((res) => res.json())
             .then((data) => {
                 const forecastData = { ...data.city, list: data.list.slice(0, 16) }
