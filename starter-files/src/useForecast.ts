@@ -12,6 +12,8 @@ export const useForecast = () => {
     const [data, getDatafetch] = useState<[]>([])
     const [input, getInput] = useState<optionType | null>(null)
     const [forecast, setForecast] = useState<forecastType | null>(null)
+    const [forecast2, setForecast2] = useState<forecastType | null>(null)
+
 
     const getData = (value: string) => {
 
@@ -43,6 +45,20 @@ export const useForecast = () => {
 
     }
 
+    const getBaramulla = () => {
+        fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=34.2086903&lon=74.343498&appid=dd6b23224fe4d97029d5697bd54182cf&units=metric`)
+            .then((res) => res.json())
+            .then((data) => {
+                const forecastData = { ...data.city, list: data.list.slice(0, 16) }
+
+                setForecast2(forecastData)
+            })
+
+    }
+
+
+
+
     const handleSubmit = () => {
         if (!input) return
         getCity(input)
@@ -57,7 +73,7 @@ export const useForecast = () => {
 
 
     useEffect(() => {
-
+        getBaramulla()
         if (input) {
             setSearch(input.name)
             getDatafetch([])
@@ -65,7 +81,7 @@ export const useForecast = () => {
 
     }, [input])
     return {
-        newSearch, data, forecast, handleSearch, handleSubmit, handleButtonClick
+        newSearch, data, forecast, forecast2, handleSearch, handleSubmit, handleButtonClick
     }
 
 }
